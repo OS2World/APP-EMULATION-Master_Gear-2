@@ -1,0 +1,41 @@
+SpiceWare MasterGear Port for OS/2                       August 9, 1998
+
+This is the source code for the OS/2 port of Marat Fayzullin's Sega Master System/Game Gear emulator.
+
+  OS/2 specific
+    dialog.h    Defines used for dialog box support
+    joyos2.h    Defines used for joystick support
+    joyos2.obj  SpiceWare Joystick Support 
+    mg.c        MAIN
+    os2res.h    Defines used for OS/2 Resources
+    os2term.c   OS/2 video and keyboard support
+    os2term.h   Defines used for OS/2 support
+    sndos2.c    OS/2 audio support
+    sndos2.h    Defines used for OS/2 audio support
+    termos2.rc  Menu and Dialog Box definition
+
+  Emulation Source
+    codes.h     Z80 commands
+    codescb.h   CB table of Z80 commands
+    codesed.h   ED table of Z80 commands
+    codesxcb.h  FD/DD-CB table of Z80 commands
+    codesxx.h   FD/DD table of Z80 commands
+    dsp.c       emulation audio routines
+    dsp.h       Defines for audio routines
+    sms.c       Sega emulation routines
+    sms.h       Defines for Sega emulation
+    tables.h    Tables used by Z80 routines
+    z80.c       Z80 emulation routines
+    z80.h       Defines for Z80 emulation
+
+Send questions in e-mail to spice@ibm.net if you have any questions on the OS/2 specific routines.
+
+
+The current release can always be found at the SpiceWare homepages at:
+http://www.geocities.com/~spiceware
+ -or-
+http://www.geocities.com/SiliconValley/Pines/2281/
+
+
+Darrell Spice Jr.
+spice@ibm.net

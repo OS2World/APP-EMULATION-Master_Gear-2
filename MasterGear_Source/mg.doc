@@ -1,0 +1,217 @@
+                         ******* MasterGear *******
+           The Portable SEGA Mark3/MasterSystem/GameGear Emulator 
+                          version 1.0 (12/06/1996)
+
+                             by Marat Fayzullin
+
+
+                         email: fms@freeflight.com
+                                IRC: RST38h
+                    WWW: http://www.freeflight.com/fms/
+
+
+
+
+                               * DICLAIMERS *
+
+* MasterSystem and GameGear are registered trademarks of SEGA.
+* The author is in no way affiliated with SEGA.
+* The author is in no way affiliated with any pirate group out there.
+* The author can not provide you with MasterSystem/GameGear games.
+
+
+
+                         * NEW IN THIS VERSION *
+
+* -delay option now allows to fix problems with GPRider, etc.
+* Sprites are now updated line-by-line, which fixed MickAndMack,
+  GunstarHeroes, and SonicDrift2.
+* Overall speed improvement, especially in the MSDOS port.
+* Music is saved in the .SND format, player included.
+* MSDOS port has got noise emulation, although not perfect one.
+* Code structure has significantly changed.
+* Improved Z80 disassembler.
+
+
+
+                            * INTRODUCTION *
+
+  MasterGear is a portable emulator of two SEGA game consoles: the
+MasterSystem (known as Mark3 in Japan) and the portable GameGear which is
+basically an improved MasterSystem in a smaller package. The emulator is
+written in C and therefore can be ported to any computer platform out
+there, given that this platform can run 32-bit applications. You can
+always get the latest MasterGear binaries and support files from
+
+                 http://www.freeflight.com/fms/MG/
+
+  At this moment, MG is able to run about 95% of the SMS/GG carts I have,
+although the emulation is still far from perfection. With the help from
+friends I hope to make it as close to original machines as possible. 
+
+  If you have any information on the MasterSystem/GameGear, or the
+ROM-images which can be used for testing, and are willing to help, feel
+free to send mail to fms@freeflight.com. Any *intelligent* help is greatly
+appreciated :).
+
+  The following games have problems when running on MG:
+
+  GP Rider             - The road sometimes gets distorted. Garbage when
+                         selecting the motorcycle. Use -delay to fix it,
+                         at least partially.
+  XMen                 - Use -vperiod 7500.
+  Altered Beast        - Restarts at the title. Use -vperiod 8500.
+  Dynamite Headdy      - Screen sometimes blinks. Use -vperiod 10000. 
+  Galaxy Force         - Some garbage at the top of a screen in the
+                         Green World.
+  Alex Kidd Lost Stars - Palette gets reset to zeroes.
+  Surfing Ninjas       - Garbage at the title screens.
+  Sonic Drift 2        - Screen sometimes blinks.
+  Mickey Mouse GG      - Some problems after being killed in the
+                         second level.
+  Mahjong GG           - Distorted screen.
+  Astro Warrior        - Remains of blown cannons are distorted.
+
+  If you find a cause of any bugs mentioned above, or know of any other
+game having problems, send me email. GP Rider, Astro Warrior and Mahjong 
+bugs appear to be caused by a special handling of VRAM accesses when the 
+second byte of VRAM address has two upper bits reset (normally, you need 
+to set them to 01 for VRAM access). It is not clear how this works.
+
+
+
+                             * BUTTONS *
+
+  MasterGear is controlled by following buttons:
+
+  [SPACE]    - FIRE-A button (also: [LALT],A,S,D,F,G,H,J,K,L)
+  [LCONTROL] - FIRE-B button (also: Z,X,C,V,B,N,M)
+  [ENTER]    - START button (only in GameGear mode)
+  [TAB]      - RESET button (only in MasterSystem mode)
+  [BACKSPC]  - PAUSE button (only in MasterSystem mode)
+  [ESC]      - Quit emulation (also: [F12])
+  [SHIFT] and [CAPSLOCK] switch between MasterSystem joypads
+
+  [1]-[4]    - Turn sound channels on/off
+  [0]        - Toggle all sound on/off
+  [-]        - Decrease sound volume
+  [+]        - Increase sound volume
+  [F1]       - Turn tracing on/off
+  [F2]       - Toggle joystick 1 on/off
+  [F3]       - Toggle joystick 2 on/off
+  [F4]       - Make a screen snapshot (SNAPxxxx.GIF)
+
+
+
+                      * COMMAND LINE OPTIONS *
+
+  MasterGear can be started with options described below. Be aware that
+not all of these options may be present in your particular version of MG. 
+Do "mg -help" for the list of options in your version. 
+
+  -verbose <level>    - Select debugging messages [1]
+                         0 - Silent             1 - Startup messages
+                         2 - Illegal accesses   4 - Illegal Z80 ops
+                         8 - Bank switching    16 - Sound
+                        32 - VDP registers
+  -vperiod <period>   - Set VBlank period [8000ops]
+  -uperiod <period>   - Number of interrupts per screen update [2]
+  -help               - Print this help page
+  -sms/-gg            - Run in MasterSystem/GameGear mode [-sms]
+                        (overrides .SMS/.GG file extensions)
+  -engl/-jap          - Run in English/Japanese mode [-engl]
+                        (overrides country code in GG carts)
+  -autoa/-noautoa     - Autofire/No autofire for button A [-noautoa]
+  -autob/-noautob     - Autofire/No autofire for button B [-noautob]
+  -delay/-nodelay     - Delay/Don't delay VRAM reads [-nodelay]
+  -logsnd <filename>  - Write soundtrack to a file [off]
+  -trap <address>     - Trap execution when PC reaches address [FFFFh]
+  -sound [<quality>]  - Emulate sound with given quality [-nosound]
+                        0 - Off              7 - Highest quality
+                        (4 assumed if no quality was given)
+  -nosound            - Don't emulate sound [-nosound]
+  -shm/-noshm         - Use/Don't use MIT SHM extensions for X [-shm]
+  -saver/-nosaver     - Save/Don't save CPU when inactive [-saver]
+  -back <filename>    - Use <filename> as background picture [MG.GIF]
+  -vsync/-novsync     - Sync/Don't sync screen updates [-novsync]
+
+
+
+                             * NOTES *
+
+  The SMS/GG programming information will be available soon at
+ftp.komkon.org. Both are nice little machines, logically structured and
+much less weird than Nintendo hardware. The CPU used is Z80, the original
+one, with no custom changes. Video controller seems to be based on a well
+known TMS9918/9928 (MSX,Coleco,TI99/4), but has only one screenmode (as
+far as I know), and is thoroughfully mutated in some other aspects. There 
+is no BIOS ROM as in MSX or ColecoVision.
+
+  MasterGear comes without any ROM images due to copyright reasons. 
+Please, *do not* send me mail asking for ROM images: I can not give you
+any, no matter how strongly you desire to get them. MasterGear works with
+plain "raw" ROM images, and therefore the default file extension is .ROM. 
+It may be a wise idea to use .SMS and .GG extensions to distinguish
+between MasterSystem and GameGear ROMs though: the choice of extension is
+not limited in any way.
+
+  Some copiers add a 512-byte header to the ROM image files they create. 
+If you see a ROM image whose size is a multiple of 16384 bytes + 512,
+simply cut off the first 512 bytes to et the raw image. Unix users can do 
+it in a following way:
+
+            dd if=<input-file> of=<output-file> skip=1 bs=512
+
+  If you want to get a bigger window in MasterGear-Unix/X, or your Xserver
+is 16/24bit (the generic version of MasterGear only supports 256-color
+Xservers), check out the improved Unix/X drivers by Ian Spielman,
+available at
+
+                  http://hepserver.nhn.uoknor.edu/
+
+  When compiled with ZLIB option, MasterGear will be able to transparently
+handle files packed with GZIP and ZIP, which helps to save the disk space.
+You will need the ZLib library by Jean-loup Gailly and Mark Adler though.
+Its source is available at
+
+                    http://quest.jpl.nasa.gov/zlib/
+
+  The MSDOS version can be compiled with GIFLIB option. Then, it will
+allow you to load backdrop pictures from the .GIF files, and save screen
+snapshots into .GIF files by pressing [F4]. You will need the GIFLib
+library by Gershon Elber, available from SimTel and other archives. 
+
+  Since version 0.6, MasterGear checks the file extension and forces
+emulation into MasterSystem or GameGear mode if extension is .SMS or .GG. 
+In the GameGear mode, the country code is also checked. If the cartridge
+is either for Japan or for US/Europe only, and there was no
+nationalization option given, the nationalization switch is forced into an
+appropriate state. 
+
+That's it. Have fun!
+
+
+
+                               * THANKS *
+
+  I would like to thank Richard Aplin, Chris Shay, Neil Harding, who
+helped with invaluable technical information about MasterSystem and
+GameGear. Thanks also go to (alphabetically)
+
+* Gershon Elber, author of GIFLib.
+* Marcel de Kogel, who helped me with the MSDOS port.
+* Alex Krasivsky, the initial author of Adlib sound driver on
+  which MG-DOS sound is based.
+* Juan Luis Lario for the pictures of GameGear.
+* James McKay, author of 'Massage'.
+* Authors of ZLib and Markus Oberhumer, who told me about ZLib.
+* Charles Scheffold and other authors of PMODE/W.
+* Ian Spielman, who wrote the enchanced Unix/X drivers for MG.
+* John Stiles, author of the MG port to Macintosh.
+* Unknown guy from .BR who showed me how to handle PC joystick.
+* Many other people who helped with information, bug reports,
+  and cart images for testing.
+
+
+---------------
+Marat Fayzullin

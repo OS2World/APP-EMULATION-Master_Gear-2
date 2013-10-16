@@ -1,0 +1,89 @@
+:TARGET.SUFFIXES
+:DEPENDENCY..c .obj .rc .res 
+:TARGET.all
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\mg.exe
+:RULE..rc.res
+:ACTION.Compile::Resource Compiler
+:COMMAND.
+rc.exe -r %s %|dpfF.RES
+:RULE..c.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe /DOS_2 /DLSB_FIRST /Tdp /O /Gm /G5 /Gf /Gi /Oi /Fo"%|dpfF.obj" /C %s
+:TARGET.E:\C_Projects\MasterGear_Source\mg.exe
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\joyos2.obj
+E:\C_Projects\MasterGear_Source\z80.obj
+E:\C_Projects\MasterGear_Source\dsp.obj
+E:\C_Projects\MasterGear_Source\mg.obj
+E:\C_Projects\MasterGear_Source\os2term.obj
+E:\C_Projects\MasterGear_Source\sms.obj
+E:\C_Projects\MasterGear_Source\sndos2.obj
+E:\C_Projects\MasterGear_Source\termos2.res
+{$(LIB)}mmpm2.lib
+:ACTION.Link::Linker
+:COMMAND.
+icc.exe @<<
+ /B" /exepack:2 /st:65535 /pmtype:pm"
+ /FeE:\C_Projects\MasterGear_Source\mg.exe 
+ mmpm2.lib 
+ E:\C_Projects\MasterGear_Source\joyos2.obj
+ E:\C_Projects\MasterGear_Source\z80.obj
+ E:\C_Projects\MasterGear_Source\dsp.obj
+ E:\C_Projects\MasterGear_Source\mg.obj
+ E:\C_Projects\MasterGear_Source\os2term.obj
+ E:\C_Projects\MasterGear_Source\sms.obj
+ E:\C_Projects\MasterGear_Source\sndos2.obj
+<<
+:ACTION.Bind::Resource Bind
+:COMMAND.
+rc.exe E:\C_Projects\MasterGear_Source\termos2.res E:\C_Projects\MasterGear_Source\mg.exe
+:TARGET.E:\C_Projects\MasterGear_Source\termos2.res
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\termos2.rc
+{$(INCLUDE)}mg.ico
+{$(INCLUDE)}dialog.h
+{$(INCLUDE)}os2res.h
+:TARGET.E:\C_Projects\MasterGear_Source\sndos2.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\sndos2.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}DSP.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}sndos2.h
+:TARGET.E:\C_Projects\MasterGear_Source\sms.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\sms.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Z80.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}DSP.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}SMS.h
+:TARGET.E:\C_Projects\MasterGear_Source\os2term.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\os2term.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Z80.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}DSP.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}SMS.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}sndos2.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}os2term.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}os2res.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}joyos2.h
+:TARGET.E:\C_Projects\MasterGear_Source\mg.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\mg.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Z80.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}SMS.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}sndos2.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}os2term.h
+:TARGET.E:\C_Projects\MasterGear_Source\dsp.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\dsp.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}DSP.h
+:TARGET.E:\C_Projects\MasterGear_Source\z80.obj
+:DEPENDENCY.
+E:\C_Projects\MasterGear_Source\z80.c
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Z80.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Tables.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}CodesCB.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}CodesXCB.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}CodesED.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}CodesXX.h
+{E:\C_Projects\MasterGear_Source;$(INCLUDE);}Codes.h

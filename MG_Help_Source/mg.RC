@@ -1,0 +1,23 @@
+/************* IPF C Sample Program Resource Script File (.RC) ****************/
+/*                                                                            */
+/*  The window resources used by an application are defined in a resource     */
+/*  script file .RC.  This file is compiled by the resource compiler to       */
+/*  produce an executable-format file.                                        */
+/*                                                                            */
+/*  The definitions are either statements which define resources or           */
+/*  references to other files containing resources.                           */
+/*                                                                            */
+/******************************************************************************/
+
+#define NEWGAME_SMALL_BMP 201
+#define CARTHLP_SMALL_BMP 202
+#define MG_HELP_SMALL_BMP 203
+
+POINTER MG___HLP_ICO mg.ico
+
+// small sized buttons
+BITMAP NEWGAME_SMALL_BMP mng.bmp
+BITMAP CARTHLP_SMALL_BMP mch.bmp
+BITMAP MG_HELP_SMALL_BMP msh.bmp
+
+

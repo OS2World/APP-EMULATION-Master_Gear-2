@@ -1,0 +1,12 @@
+:TARGET.SUFFIXES
+:DEPENDENCY..IPF .hlp 
+:TARGET.all
+:DEPENDENCY.
+E:\C_Projects\MG_Help_Source\mg.hlp
+:RULE..IPF.hlp
+:ACTION.Compile::IPF Compiler
+:COMMAND.
+ipfc.exe %s
+:TARGET.E:\C_Projects\MG_Help_Source\mg.hlp
+:DEPENDENCY.
+E:\C_Projects\MG_Help_Source\mg.IPF

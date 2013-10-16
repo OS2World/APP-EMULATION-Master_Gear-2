@@ -1,0 +1,86 @@
+#define  INCL_PM
+
+#include <os2.h>
+#include "os2res.h"
+#include "dialog.h"
+
+BITMAP START_BMP start.bmp
+POINTER MG_ICO mg.ico
+
+// medium sized buttons
+BITMAP NEWGAME_BMP mng.bmp
+BITMAP SETTING_BMP mdb.bmp
+BITMAP CARTHLP_BMP mch.bmp
+BITMAP MGHLP_BMP   msh.bmp
+
+
+MENU MENU_RESOURCE
+   {
+    MENUITEM "#101", IDM_NEWCART, MIS_BITMAP
+    MENUITEM "#102", IDM_SETTINGS, MIS_BITMAP
+    MENUITEM "#103", IDM_GAMEHELP, MIS_BITMAP
+    MENUITEM "#104", IDM_MGHELP, MIS_BITMAP
+   }
+
+DLGTEMPLATE DB_MAIN LOADONCALL MOVEABLE DISCARDABLE
+{
+    DIALOG  "Master Gear/2 Settings", DB_MAIN, 0, 0, 252, 139, WS_VISIBLE,
+            FCF_SYSMENU | FCF_TITLEBAR
+    {
+        GROUPBOX        "Joystick", 137, 0, 110, 130, 26
+        PUSHBUTTON      "Recalibrate", DB_J_REC, 30, 115, 57, 11
+        GROUPBOX        "Audio", 101, 0, 19, 130, 89
+        GROUPBOX        "Volume", 102, 6, 62, 42, 39
+        AUTORADIOBUTTON "~Off", DB_AV_OFF, 12, 83, 27, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~Low", DB_AV_LO, 12, 74, 30, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~High", DB_AV_HI, 12, 65, 27, 10, WS_TABSTOP
+        GROUPBOX        "Frequency", 107, 66, 44, 57, 57
+        AUTORADIOBUTTON "~8000", DB_AF_8, 69, 83, 39, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~11025", DB_AF_11, 69, 74, 39, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~22050", DB_AF_22, 69, 65, 39, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~33075", DB_AF_33, 69, 56, 39, 10, WS_TABSTOP
+        AUTORADIOBUTTON "~44100", DB_AF_44, 69, 47, 39, 10, WS_TABSTOP
+        GROUPBOX        "Buffer Size", 116, 6, 24, 57, 30
+        SLIDER          DB_BS_B, 9, 27, 51, 10, SLS_SNAPTOINCREMENT |
+                        SLS_BUTTONSLEFT
+                        CTLDATA 12, 0, 57, 1, 0, 0
+        LTEXT           "Text", DB_BS_BT, 18, 39, 30, 8, NOT WS_GROUP
+        AUTOCHECKBOX        "Oscilloscope", DB_OSC, 67, 32, 59, 10
+        PUSHBUTTON      "Default", DB_AF_DFLT, 74, 23, 39, 10
+        GROUPBOX        "System", 121, 138, 96, 75, 31
+        AUTORADIOBUTTON "~NTSC (60 fps)", DB_VR_NTSC, 141, 108, 69, 10,
+                        WS_GROUP | WS_TABSTOP
+        AUTORADIOBUTTON "~PAL (50 fps)", DB_VR_PAL, 141, 99, 69, 10,
+                        WS_TABSTOP
+        GROUPBOX        "Video", 122, 132, 19, 120, 117, NOT WS_GROUP
+        GROUPBOX        "Frames Per Second", 124, 138, 48, 111, 46
+        LTEXT           "Init", 134, 141, 78, 20, 8
+        SLIDER          DB_FPS_INIT, 159, 75, 64, 13, SLS_SNAPTOINCREMENT |
+                        SLS_BUTTONSLEFT
+                        CTLDATA 12, 0, 16, 5, 0, 0
+        RTEXT           "30", DB_FPS_INIT_T, 225, 78, 18, 8, NOT WS_GROUP
+        LTEXT           "Min", 135, 141, 66, 20, 8, NOT WS_GROUP
+        SLIDER          DB_FPS_MIN, 159, 63, 64, 13, SLS_SNAPTOINCREMENT |
+                        SLS_BUTTONSLEFT
+                        CTLDATA 12, 0, 16, 5, 0, 0
+        RTEXT           "4", DB_FPS_MIN_T, 225, 66, 18, 8, NOT WS_GROUP
+        LTEXT           "Max", 136, 141, 54, 20, 8, NOT WS_GROUP
+        SLIDER          DB_FPS_MAX, 159, 51, 64, 13, SLS_SNAPTOINCREMENT |
+                        SLS_BUTTONSLEFT
+                        CTLDATA 12, 0, 16, 5, 0, 0
+        RTEXT           "60", DB_FPS_MAX_T, 225, 54, 18, 8, NOT WS_GROUP
+        GROUPBOX        "Initial Window Size", 128, 138, 24, 111, 21
+                        CTLDATA 12, 0, 9, 7, 0, 0
+        RTEXT           "MS", DB_IWS_T, 140, 27, 17, 8, NOT WS_GROUP
+        RTEXT           "GG", DB_IWS_GG_T, 198, 27, 17, 8, NOT WS_GROUP
+
+        SPINBUTTON      DB_IWS, 159, 27, 25, 10, SPBS_MASTER | SPBS_NUMERICONLY | SPBS_READONLY
+        SPINBUTTON      DB_IWS_GG, 217, 27, 25, 10, SPBS_MASTER | SPBS_NUMERICONLY | SPBS_READONLY
+
+        PUSHBUTTON      "OK", DB_OK, 24, 2, 40, 14, WS_GROUP
+        PUSHBUTTON      "Cancel", DB_CAN, 96, 2, 40, 14
+        PUSHBUTTON      "Help", DB_HELP, 171, 2, 40, 14
+
+    }
+}
+
